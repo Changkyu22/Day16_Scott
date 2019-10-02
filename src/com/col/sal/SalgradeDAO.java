@@ -1,75 +1,26 @@
-package com.nuri.emp;
+package com.col.sal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.nuri.utill.DBconnector;
 
-public class EmpDAO {
-
-	// getSelectList
-	// 전체사원정보 - 최신입사순
+public class SalgradeDAO {
 	
-	public int delete(int empno) {
-		
+	public int salDelete(int grade) {
 		Connection con = null;
 		PreparedStatement st = null;
 		int result = 0;
 		
 		try {
 			con = DBconnector.getConnect();
-			String sql = "delete emp where empno = ?";
-			st = con.prepareStatement(sql);
-			st.setInt(1, empno);
-			
-			result =st.executeUpdate();
-			
-			if(result>0) {
-				System.out.println("입력성공");
-			}else {
-				System.out.println("입력실패");
-			}
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				st.close();
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return result;
-		
-		
-	}
-	
-	public int empInsert(EmpDTO empDTO) {
-		
-		Connection con = null;
-		PreparedStatement st = null;
-		int result = 0;
-		
-		try {
-			con = DBconnector.getConnect();
-			String sql = "insert into emp values(?,?,?,?,sysdate,?,?,?)";
+			String sql = "delete salgrade where grade=?";
 			st = con.prepareStatement(sql);
 			
-			st.setInt(1, empDTO.getEmpno());
-			st.setString(2, empDTO.getEname());
-			st.setString(3, empDTO.getJob());
-			st.setInt(4, empDTO.getMgr());
-			// st.setString(5, empDTO.getHiredate());
-			st.setInt(5, empDTO.getSal());
-			st.setInt(6, empDTO.getComm());
-			st.setInt(7, empDTO.getDeptno());
+			st.setInt(1, grade);
 			
 			result = st.executeUpdate();
 			
@@ -86,45 +37,74 @@ public class EmpDAO {
 			try {
 				st.close();
 				con.close();
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}
 		return result;
-		
 	}
-	public ArrayList<EmpDTO> getSelectList() {
-		EmpDTO empDTO = null;
+	
+	public int salInsert(SalgradeDTO salgradeDTO) {
+		Connection con = null;
+		PreparedStatement st = null;
+		int result = 0;
+		
+		try {
+			con = DBconnector.getConnect();
+			String sql = "insert into salgrade values(?,?,?)";
+			st = con.prepareStatement(sql);
+			
+			st.setInt(1, salgradeDTO.getGrade());
+			st.setInt(2, salgradeDTO.getLosal());
+			st.setInt(3, salgradeDTO.getHisal());
+			
+			result = st.executeUpdate();
+			
+			if(result>0) {
+				System.out.println("입력성공");
+			}else {
+				System.out.println("입력실패");
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				st.close();
+				con.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return result;
+	}
+	
+	public ArrayList<SalgradeDTO> getSelectList() {
+		SalgradeDTO salgradeDTO = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		ArrayList<EmpDTO> ar = new ArrayList<EmpDTO>();
-
+		ArrayList<SalgradeDTO> ar = new ArrayList<SalgradeDTO>();
+		
 		try {
 			con = DBconnector.getConnect();
-			String sql = "select empno, ename, job, mgr, hiredate, sal, nvl(comm,0) as COMM, deptno "
-					+ "from emp order by hiredate desc";
-
+			String sql = "select * from salgrade";
 			st = con.prepareStatement(sql);
-
 			rs = st.executeQuery();
-
+			
 			while(rs.next()) {
-				empDTO = new EmpDTO();
-				empDTO.setEmpno(rs.getInt("empno"));
-				empDTO.setEname(rs.getString("ename"));
-				empDTO.setJob(rs.getString("job"));
-				empDTO.setMgr(rs.getInt("mgr"));
-				empDTO.setHiredate(rs.getString("hiredate"));
-				empDTO.setSal(rs.getInt("sal"));
-				empDTO.setComm(rs.getInt("comm"));
-				empDTO.setDeptno(rs.getInt("deptno"));
-				ar.add(empDTO);
+				salgradeDTO = new SalgradeDTO();
+				salgradeDTO.setGrade(rs.getInt("grade"));
+				salgradeDTO.setLosal(rs.getInt("losal"));
+				salgradeDTO.setHisal(rs.getInt("hisal"));
+				ar.add(salgradeDTO);
 			}
-
-
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -133,50 +113,40 @@ public class EmpDAO {
 				rs.close();
 				st.close();
 				con.close();
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		}
 		return ar;
-
+		
+		
 	}
 
-	// getSelectOne
-	// 매개변수로 사원번호
-
+	
 	DBconnector dc = new DBconnector();
 	Connection con = null;
 	PreparedStatement st = null;
 	ResultSet rs = null;
-
-	public EmpDTO getSelectOne(int empno) {
-		EmpDTO empDTO = null;
-
+	
+	public SalgradeDTO getSelectOne(int grade) {
+		SalgradeDTO salgradeDTO = null;
+		
 		try {
 			con = DBconnector.getConnect();
-			String sql = "select empno, ename, job, mgr, hiredate, sal, nvl(comm,0) as COMM, deptno from emp "
-					+ "where empno=?";
-
+			String sql = "select grade, losal, hisal from salgrade where grade=?";
+			
 			st = con.prepareStatement(sql);
-
-			st.setInt(1, empno);
-
+			st.setInt(1, grade);
 			rs = st.executeQuery();
-
+			
 			if(rs.next()) {
-				empDTO = new EmpDTO();
-				empDTO.setEmpno(rs.getInt("empno"));
-				empDTO.setEname(rs.getString("ename"));
-				empDTO.setJob(rs.getString("job"));
-				empDTO.setMgr(rs.getInt("mgr"));
-				empDTO.setHiredate(rs.getString("hiredate"));
-				empDTO.setSal(rs.getInt("sal"));
-				empDTO.setComm(rs.getInt("comm"));
-				empDTO.setDeptno(rs.getInt("deptno"));
+				salgradeDTO = new SalgradeDTO();
+				salgradeDTO.setGrade(rs.getInt("grade"));
+				salgradeDTO.setLosal(rs.getInt("losal"));
+				salgradeDTO.setHisal(rs.getInt("hisal"));
 			}
-
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -190,7 +160,6 @@ public class EmpDAO {
 				e.printStackTrace();
 			}
 		}
-		return empDTO;
+		return salgradeDTO;
 	}
-
 }

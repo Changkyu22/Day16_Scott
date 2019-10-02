@@ -13,6 +13,13 @@ public class EmpInput {
 		sc = new Scanner(System.in);
 	}
 	
+	public EmpDTO delete() {
+		EmpDTO empDTO = new EmpDTO();
+		System.out.println("삭제할 사원번호를 입력하세요");
+		empDTO.setEmpno(sc.nextInt());
+		return empDTO;
+	}
+	
 	public EmpDTO inset() {
 		EmpDTO empDTO = new EmpDTO();
 		System.out.println("추가할 사원번호를 입력하세요");

@@ -23,9 +23,10 @@ public class EmpController {
 	public void start() {
 		
 		System.out.println("1. 전체정보출력");
-		System.out.println("2. 사원검색출력");
+		System.out.println("2. 사  원  검  색");
 		System.out.println("3. 사원정보출력");
-		System.out.println("4. 종            료");
+		System.out.println("4. 사  원  삭  제");
+		System.out.println("5. 종            료");
 		int select = sc.nextInt();
 		
 		EmpDTO empDTO = new EmpDTO();
@@ -50,6 +51,10 @@ public class EmpController {
 				if(select>0) {
 					s = "Insert Success";
 				}
+				break;
+			case 4 :
+				int a = empInput.empnoInput();
+				select = empDAO.delete(a);
 				break;
 			default :
 				System.out.println("프로그램을 종료합니다.");
