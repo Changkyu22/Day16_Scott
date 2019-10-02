@@ -111,8 +111,8 @@ public class DeptDAO {
 			String sql = "select * from dept where deptno = ?";
 			
 			st = con.prepareStatement(sql);
-			rs = st.executeQuery();
 			st.setInt(1, deptno);
+			rs = st.executeQuery();
 			
 			if(rs.next()) {
 				dto = new DeptDTO();
