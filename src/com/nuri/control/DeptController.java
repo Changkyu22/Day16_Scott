@@ -46,6 +46,7 @@ public class DeptController {
 		case 2 :
 			select = input.deptnoInput();
 			dto = dao.getSelectOne(select);
+			view.view(dto);
 			break;
 		case 3 :
 			dto = input.insert();

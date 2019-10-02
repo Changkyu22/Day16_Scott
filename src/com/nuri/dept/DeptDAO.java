@@ -25,7 +25,7 @@ public class DeptDAO {
 		
 		try {
 			con = DBconnector.getConnect();
-			String sql = "insert into dept(deptno, dname, loc) values(?, ?, ?)";
+			String sql = "insert into dept values(?, ?, ?)";
 			st = con.prepareStatement(sql);
 			
 			st.setInt(1, deptDTO.getDeptno());
