@@ -19,7 +19,7 @@ public class EmpDAO {
 		ArrayList<EmpDTO> ar = new ArrayList<EmpDTO>();
 		try {
 			con = DBconnector.getConnect();
-			String sql = "select ename, job, sal, comm from bonus where ename = ?";
+			String sql = "select ename, job, sal, comm from emp where ename like ?";
 			ename = "%"+ename+"%";
 		
 			st = con.prepareStatement(sql);
@@ -35,7 +35,7 @@ public class EmpDAO {
 				dto.setComm(rs.getInt("comm"));
 				ar.add(dto);
 			}
-			System.out.println(ename);
+			//System.out.println(ename);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
