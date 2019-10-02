@@ -21,21 +21,24 @@ public class EmpController {
 	}
 	
 	public void start() {
-		
-		System.out.println("1. 전체정보출력");
-		System.out.println("2. 사  원  검  색");
-		System.out.println("3. 사원정보출력");
-		System.out.println("4. 사  원  삭  제");
-		System.out.println("5. 종            료");
-		int select = sc.nextInt();
-		
-		EmpDTO empDTO = new EmpDTO();
-		EmpDAO empDAO = new EmpDAO();
-		EmpInput empInput = new EmpInput();
-		EmpView empView = new EmpView();
-		ArrayList<EmpDTO> ar = new ArrayList<EmpDTO>();
-		
-		switch(select){
+		boolean check = true;
+		while(check) {
+			
+			System.out.println("1. 전체정보출력");
+			System.out.println("2. 사  원  검  색");
+			System.out.println("3. 사원정보출력");
+			System.out.println("4. 사  원  삭  제");
+			System.out.println("5. 사업이름검색");
+			System.out.println("6. 종            료");
+			int select = sc.nextInt();
+			
+			EmpDTO empDTO = new EmpDTO();
+			EmpDAO empDAO = new EmpDAO();
+			EmpInput empInput = new EmpInput();
+			EmpView empView = new EmpView();
+			ArrayList<EmpDTO> ar = new ArrayList<EmpDTO>();
+			
+			switch(select){
 			case 1 : 
 				ar = empDAO.getSelectList();
 				empView.allview(ar);
@@ -56,10 +59,22 @@ public class EmpController {
 				int a = empInput.empnoInput();
 				select = empDAO.delete(a);
 				break;
-			default :
+			case 5 :
+				String b = empInput.searchInput();
+				empView.allview(empDAO.searchOne(b));
+				break;
+			case 6 :
+				check = !check;
 				System.out.println("프로그램을 종료합니다.");
 				break;
+			default :
+				System.out.println("없는 메뉴입니다. 다시입력하세요");
+				break;
+			}
+			
 		}
+		
+		
 			
 			
 		

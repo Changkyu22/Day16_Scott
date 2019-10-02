@@ -8,11 +8,11 @@ public class BonusView {
 
 	public void selectList(ArrayList<BonusDTO> ar) {
 		for(BonusDTO bonusDTO : ar) {
-			this.SelectOne(bonusDTO);
+			this.selectOne(bonusDTO);
 		}
 	}
 	
-	public void SelectOne(BonusDTO bonusDTO) {
+	public void selectOne(BonusDTO bonusDTO) {
 		System.out.println("========================");
 		System.out.println("ENAME : " + bonusDTO.getEname());
 		System.out.println("JOB : " + bonusDTO.getJob());

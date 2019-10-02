@@ -13,6 +13,12 @@ public class EmpInput {
 		sc = new Scanner(System.in);
 	}
 	
+	public String searchInput() {
+		System.out.println("사원이름을 입력하세요");
+		String b = sc.next();
+		return b.toUpperCase();
+	}
+	
 	public EmpDTO delete() {
 		EmpDTO empDTO = new EmpDTO();
 		System.out.println("삭제할 사원번호를 입력하세요");

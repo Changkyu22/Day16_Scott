@@ -7,12 +7,53 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.col.bo.BonusDTO;
 import com.nuri.utill.DBconnector;
 
 public class EmpDAO {
 
 	// getSelectList
 	// 전체사원정보 - 최신입사순
+	
+	public ArrayList<EmpDTO> searchOne(String ename) {
+		ArrayList<EmpDTO> ar = new ArrayList<EmpDTO>();
+		try {
+			con = DBconnector.getConnect();
+			String sql = "select ename, job, sal, comm from bonus where ename = ?";
+			ename = "%"+ename+"%";
+		
+			st = con.prepareStatement(sql);
+			st.setString(1, ename);
+			EmpDTO dto = null;
+
+			rs = st.executeQuery();
+			while(rs.next()) {
+				dto = new EmpDTO();
+				dto.setEname(rs.getString("ename"));
+				dto.setJob(rs.getString("job"));
+				dto.setSal(rs.getInt("sal"));
+				dto.setComm(rs.getInt("comm"));
+				ar.add(dto);
+			}
+			System.out.println(ename);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				st.close();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return ar;
+	}
+	
+	
 	
 	public int delete(int empno) {
 		

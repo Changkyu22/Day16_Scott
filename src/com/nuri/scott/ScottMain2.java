@@ -3,6 +3,8 @@ package com.nuri.scott;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.col.bo.BonusController;
+import com.col.sal.SalgradeController;
 import com.nuri.control.DeptController;
 import com.nuri.control.EmpController;
 import com.nuri.control.FrontController;
@@ -39,7 +41,15 @@ public class ScottMain2 {
 		
 		
 		//view.insertview(dto);
-		deptController.start();
+		// deptController.start();
+		
+		SalgradeController salgradeController = new SalgradeController();
+		//salgradeController.start();
+		// BonusController bonusController = new BonusController();
+		//bonusController.start();
+		
+		EmpController empController = new EmpController();
+		empController.start();
 		
 	}
 }

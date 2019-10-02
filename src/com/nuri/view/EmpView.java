@@ -9,9 +9,12 @@ public class EmpView {
 	// 전체 사원  view = EmpView
 
 	public void allview(ArrayList<EmpDTO> ar) {
-		for (EmpDTO empDTO : ar) {
-
-			this.view(empDTO);
+		if(ar.size() != 0) {
+			for (EmpDTO empDTO : ar) {
+				this.view(empDTO);
+			}
+		}else {
+			System.out.println("정보가 없습니다");
 		}
 
 	}

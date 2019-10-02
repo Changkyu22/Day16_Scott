@@ -10,11 +10,17 @@ public class BonusInput {
 		sc = new Scanner(System.in);
 	}
 	
-	public BonusDTO selectOne() {
-		BonusDTO bonusDTO = new BonusDTO();
-		System.out.println("사원번호를 입력하세요");
-		bonusDTO.setEname(sc.next());
-		return bonusDTO;
+	public String searchInput() {
+		System.out.println("사원이름을 입력하세요");
+		String b = sc.next();
+		return b;
+	}
+	
+	public String selectOne() {
+		System.out.println("사원이름를 입력하세요");
+		String a = sc.next();
+		return a;
+		
 	}
 	
 	public BonusDTO boInsert() {
