@@ -13,6 +13,55 @@ public class EmpDAO {
 
 	// getSelectList
 	// 전체사원정보 - 최신입사순
+	
+	public int empInsert(EmpDTO empDTO) {
+		String user = "scott";
+		String password = "tiger";
+		String url = "jdbc:oracle:thin:@192.168.56.102:1521:xe";
+		String driver = "oracle.jdbc.driver.OracleDriver";
+		
+		Connection con = null;
+		PreparedStatement st = null;
+		int result = 0;
+		
+		try {
+			con = DBconnector.getConnect();
+			String sql = "insert into emp values(?,?,?,?,sysdate,?,?,?)";
+			st = con.prepareStatement(sql);
+			
+			st.setInt(1, empDTO.getEmpno());
+			st.setString(2, empDTO.getEname());
+			st.setString(3, empDTO.getJob());
+			st.setInt(4, empDTO.getMgr());
+			// st.setString(5, empDTO.getHiredate());
+			st.setInt(5, empDTO.getSal());
+			st.setInt(6, empDTO.getComm());
+			st.setInt(7, empDTO.getDeptno());
+			
+			result = st.executeUpdate();
+			
+			if(result>0) {
+				System.out.println("입력성공");
+			}else {
+				System.out.println("입력실패");
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				st.close();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return result;
+		
+	}
 	public ArrayList<EmpDTO> getSelectList() {
 		EmpDTO empDTO = null;
 		Connection con = null;

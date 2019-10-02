@@ -27,4 +27,17 @@ public class EmpView {
 		System.out.println("COMM : " + empDTO.getComm());
 		System.out.println("DEPTNO : " + empDTO.getDeptno());
 	}
+
+	public void insertview(EmpDTO empDTO) {
+		System.out.println("===============================");
+		System.out.println("EMPNO : " + empDTO.getEmpno());
+		System.out.println("ENAME : " + empDTO.getEname());
+		System.out.println("JOB : " + empDTO.getJob());
+		System.out.println("MGR : " + empDTO.getMgr());
+		System.out.println("HIREDATE : " + empDTO.getHiredate());
+		System.out.println("SAL : " + empDTO.getSal());
+		System.out.println("COMM : " + empDTO.getComm());
+		System.out.println("DEPTNO : " + empDTO.getDeptno());
+
+	}
 }

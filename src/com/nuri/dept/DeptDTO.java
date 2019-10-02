@@ -1,4 +1,4 @@
-package com.nuri.emp;
+package com.nuri.dept;
 
 public class DeptDTO {
 	private int deptno;

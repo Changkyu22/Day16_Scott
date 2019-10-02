@@ -24,7 +24,8 @@ public class EmpController {
 		
 		System.out.println("1. 전체정보출력");
 		System.out.println("2. 사원검색출력");
-		System.out.println("3. 종            료");
+		System.out.println("3. 사원정보출력");
+		System.out.println("4. 종            료");
 		int select = sc.nextInt();
 		
 		EmpDTO empDTO = new EmpDTO();
@@ -42,7 +43,15 @@ public class EmpController {
 				empDTO = empDAO.getSelectOne(empInput.empnoInput());
 				empView.view(empDTO);
 				break;
-			case 3 :
+			case 3 :	
+				empDTO = empInput.inset();
+				select = empDAO.empInsert(empDTO);
+				String s = "Insert Fail";
+				if(select>0) {
+					s = "Insert Success";
+				}
+				break;
+			default :
 				System.out.println("프로그램을 종료합니다.");
 				break;
 		}
